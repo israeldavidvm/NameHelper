@@ -1,0 +1,16 @@
+{
+    "name": "israeldavidvm/name-helper",
+    "description": "Manage file names, responsive images, URLs and more with ease!The NameHelper repository offers you a complete library to simplify working with names in your application.The NameHelper class provides a collection of utility functions for working with image names, particularly in the context of generating responsive image URLs. It also includes auxiliary functions for manipulating file names and some special functions that allow the generation of urls specially designed for Laravel.I usually use this package with other packages created by me such as ImageCompressor and SmartImage.",
+    "type": "library",
+    "require": {
+        "php": ">=5.4"
+    },
+    "license": "LGPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Israel David Villarroel Moreno",
+            "email": "israeldavidvm@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}
