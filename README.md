@@ -1,232 +1,7 @@
 
 # NameHelper 
-## Manage file names, responsive images, URLs and more with ease!
 
-The NameHelper repository offers you a complete library to simplify working with names in your application.
-
-The NameHelper class provides a collection of utility functions for working with image names, particularly in the context of generating responsive image URLs. It also includes auxiliary functions for manipulating file names and some special functions that allow the generation of urls specially designed for Laravel.
-
-I usually use this package with other packages created by me such as ImageCompressor and SmartImage.
-
-## License
-
-This Code is licensed under the general public license of GNU version 3.0 or posterior (LGPLV3+). You can find a complete copy of the license at https://www.gnu.org/licenses/lgPl-3.0-standalone.htmlalone.html0-standalone.html
-
-## CHARACTERISTICS What does Namehelper offer?
-
-- Transforms names into URLs compatible formats:
-
-    - Convert tiny names (UTF-8).
-    - Replaces low spaces and scripts with scripts.
-    - Replace special characters with alphanumeric equivalents (for example, "a" becomes "a").
-    - Eliminate punctuation marks and symbols not suitable for URLs.    
- - It generates variations of responsive names for images:
-
- - Create names of images with most recommended sizes that should have a responsive image (for example, "360-Imagen.jpg").
-
- - Generates URLs for local and external, responsive and non -responsive images.
-
- - Create URLS optimized for the Laravel framework.
-
- - Facilitates work with the name of files, extensions or directories
-
- ## Documentation 
-
-NameHelper provides a collection of useful functions for manipulating file names, URLs, and generating URLs for images.
-
-### Handling file names, path in linux file system or url
-
-The library also provides a number of ways to work with file names present in what we call a $fileLocatorName which is nothing more than a string that refers to a file name, path in the file system in Linux or url.
-
-So we can
-
-#### Return the extension of a file from a <fileLocatorName>. Note, the file should not be a directory since directories do not have extensions, an assertion will be issued if a directory is passed instead of a file.
-
-```
-NameHelper::getExtOfFile($fileLocatorName);
-```
-
-#### Return the name of a file or directory without the extension from a <fileLocatorName>
-
-```
-NameHelper::getFileOrDirNameWithoutExt($fileLocatorName);
-```
-
-#### Returns the name of a file or directory from a <fileLocatorName>
-
-
-```
-NameHelper::getFileOrDirName($fileLocatorName);
-```
-
-### Name to url name converter
-
-One of the things this library offers is a simple way to convert names to url names.
-
-Suppose you want to use the name of a blog post as an identifier through the url.
-
-So to access the post titled "hello world" you access the path
-www.miblog.com/blog/hello-world
-
-Here we can use the function
-
-```NameHelper::transformNameToUrlName($name)```
-
-Which when passed as a parameter
-$name="hello world" will return hello-world
-
-### Name generation for responsive images
-
-If we want to generate a list of names for responsive images, we execute the method
-
-```NameHelper::generateResponsiveImageNames($imageName);```
-
-which for a parameter $imageName=image.jpg
-will return an associative array
-```
-[
- 0 => "image.jpg",
- 360 => "360-image.jpg",
- 720 => "720-image.jpg",
- 1080 => "1080-image.jpg",
- 1440 => "1440-image.jpg",
- 1800 => "1800-image.jpg",
- 2160 => "2160-image.jpg",
- 2880 => "2880-image.jpg",
- 3600 => "3600-image.jpg",
- 4320 => "4320-image.jpg",
-];
-```
-
-### Generation of URLs for Images
-This library seeks to support normal, responsive images, with local or external storage
-
-#### Grammar for urls
-
-So the library will use the following generation of URLs by convention.
-
-##### Local non-responsive image for laravel
-```
-<nonResponsiveLocalUrl>::= <localBaseUrl>/<dirImage>/<imageName>
-```
-
-For example
-
-```/storage/images/imagen/imagen.jpg```
-
-
-##### Responsive local image for laravel
-
-```
-<ResponsiveLocalUrl>::= <localBaseUrl>/<dirImage>
-```
-For example
-```/storage/images/image/```
-
-Where:
-Methods that contain the word LaravelConvectional usually give the value to
-```
-<localBaseUrl> from "/storage/images"
-```
-
-Where:
-Methods that contain the word Conventional usually give the value to
-```
-<dirImage> from the result of NameHelper::transformNameToUrlName($imageName)
-```
-##### Conventional local non-responsive image
-```
-<nonResponsiveLocalUrl>::= <localBaseUrl>/<dirImage>/<imageName>
-```
-
-For example
-
-```/storage/images/imagen/imagen.jpg```
-
-
-##### Conventional Responsive Local Image
-
-```
-<ResponsiveLocalUrl>::= <localBaseUrl>/<dirImage>
-```
-For example
-```/storage/images/image/```
-
-
-Where:
-Methods that contain the word Conventional usually give the value to
-```
-<dirImage> from the result of NameHelper::transformNameToUrlName($imageName)
-```
-
-##### Local non-responsive image
-```
-<nonResponsiveLocalUrl>::= <localBaseUrl>/<imageName>
-```
-
-For example
-
-```/storage/images/imagen/imagen.jpg```
-
-
-##### Responsive local image
-
-```
-<ResponsiveLocalUrl>::= <localBaseUrl>
-```
-For example
-```/storage/images/image/```
-
-##### External image not responsive
-```
-<nonResponsiveExternalUrl>::= <externalBaseUrl>/<dirImage>/<imageName>
-```
-
-##### Responsive external image
-```
-<ResponsiveExternalUrl>::= <externalBaseUrl>/<dirImage>
-```
-
-## Usage examples
-
-#### Store the url of the images in the database:
-
-To store a responsive image in the database of a Laravel application, it is recommended to use
-
-```
-NameHelper::generateLaravelConvectionResponsiveImageDirUrl($imageName)
-```
-
-Which will generate an image url like
-```/storage/images/image/```
-
-```
-NameHelper::generateLaravelConvectionNonResponsiveImageUrl($imageName)
-```
-
-Which will generate an image url like
-```/storage/images/imagen/imagen.jpg```
-
-#### Recover images in the database:
-
-Note that responsive images are stored in a directory
-
-So the names for each of the responsive images must be obtained through
-
-```
-NameHelper::generateResponsiveImageUrls($imageName, $baseUrl);
-```
-
-Or through simpler commands like
-```
-NameHelper::generateLaravelConvectionResponsiveImageUrls($imageName)
-```
-
-either
-
-```
-NameHelper::generateConvectionResponsiveImageUrls($imageName)
-```
+[Readme version in English](./README-EN.md)
 
 ## ¡Maneja nombres de archivos, imagenes responsive, URLs y más con facilidad!
 
@@ -239,7 +14,6 @@ Este paquete lo suelo usar con otro paquetes creados por mi como ImageCompressor
 ## Licencia
 
 Este código tiene licencia bajo la licencia pública general de GNU versión 3.0 o posterior (LGPLV3+). Puede encontrar una copia completa de la licencia en https://www.gnu.org/licenses/lgpl-3.0-standalone.htmlalone.html0-standalone.html
-
 
 ## Caracteristicas ¿Qué te ofrece NameHelper?
 
@@ -329,15 +103,55 @@ retornara un array asociativo
 ```
 
 ### Generacion de urls para Images
-Esta libreria busca dar soporte a imagenes normales, responsive, con almacenamiento local o externo
+Esta libreria busca dar soporte a imagenes normales, responsive y con almacenamiento local o externo.
+
+Para lo cual se presupone que las variaciones de una imagen responsive se agrupan en una carpeta. 
+
+Tambien se busca facilitar el uso de convenciones: para lo cual se estandariza una para generacion de el nombres para las carpetas que almacenan las variaciones de una imagen responsive y la carpeta donde se almacenan las imagenes en laravel.
+
+De forma que existen metodos especiales que siguen estas convenciones a los cuales se les incluye la palabra Conventional y LaravelConvetional
 
 #### Gramatica para las url
+Convenciones de notacion para la gramatica:
 
-De manera que la libreria utilizara por convencion la siguiente generacion de URLs
+Los <> se utilizan para rodear un simbolo no terminal
+
+El ::= se utiliza para reglas de produccion
+
+Los simbolos no terminales se expresan como una cadena o caracteres normales
+
+El siguiente grupo de pares de simbolos, se deben utilizar junto a las expresiones de la siguiente forma: el primero en cada pareja se escribe como sufijo despues de la expresion y el segundo rodea la expresion. 
+
+El ? o [] indican que la expresion es opcional
+
+El * o {} indica que la expresion se repite 0 o mas veces
+
+El + indica que la expresion se repite 1 o mas veces
+
+Si se quiere usar uno de los caracteres anteriores se debe de anteceder \ con 
+
+De manera que la libreria utilizara la siguiente gramatica para sus urls
+
+```<baseUrl>/<dirImage>?/<imageName>?```
+
+Donde: 
+Los metodos que contienen la palabra LaravelConvetional suelen darle el valor a
+```
+<baseUrl>  de "/storage/images" 
+```
+
+Donde:
+Los metodos que contienen la palabra Convetional suelen darle el valor a
+```
+<dirImage> de el resultado de NameHelper::transformNameToUrlName($imageName)
+```
+
+Notese que la diferencia entre una url externa he interna se basa en el valor de ```<baseUrl>```
 
 ##### Imagen no responsiva local para laravel
+
 ```
-<nonResponsiveLocalUrl>::= <localBaseUrl>/<dirImage>/<imageName>
+<nonResponsiveLocalUrl>::= <baseUrl>/<dirImage>?/<imageName>
 ```
 
 Como por ejemplo 
@@ -348,25 +162,14 @@ Como por ejemplo
 ##### Imagen local responsiva para laravel
 
 ```
-<ResponsiveLocalUrl>::= <localBaseUrl>/<dirImage>
+<ResponsiveLocalUrl>::= <baseUrl>/<dirImage>
 ```
 Como por ejemplo 
 ```/storage/images/imagen/```
 
-Donde: 
-Los metodos que contienen la palabra LaravelConvetional suelen darle el valor a
+##### Imagen no responsiva local o externa convencional
 ```
-<localBaseUrl>  de "/storage/images" 
-```
-
-Donde:
-Los metodos que contienen la palabra Convetional suelen darle el valor a
-```
-<dirImage> de el resultado de NameHelper::transformNameToUrlName($imageName)
-```
-##### Imagen no responsiva local convencional
-```
-<nonResponsiveLocalUrl>::= <localBaseUrl>/<dirImage>/<imageName>
+<ConventionalNonResponsiveUrl>::= <baseUrl>/<dirImage>/<imageName>
 ```
 
 Como por ejemplo 
@@ -374,24 +177,18 @@ Como por ejemplo
 ```/storage/images/imagen/imagen.jpg```
 
 
-##### Imagen local responsiva convencional
+##### Imagen local o externa responsiva convencional
 
 ```
-<ResponsiveLocalUrl>::= <localBaseUrl>/<dirImage>
+<ConventionalResponsiveUrl>::= <baseUrl>/<dirImage>
 ```
 Como por ejemplo 
 ```/storage/images/imagen/```
 
 
-Donde:
-Los metodos que contienen la palabra Convetional suelen darle el valor a
+##### Imagen no responsiva local o externa
 ```
-<dirImage> de el resultado de NameHelper::transformNameToUrlName($imageName)
-```
-
-##### Imagen no responsiva local
-```
-<nonResponsiveLocalUrl>::= <localBaseUrl>/<imageName>
+<nonResponsiveUrl>::= <baseUrl>/<imageName>
 ```
 
 Como por ejemplo 
@@ -399,23 +196,14 @@ Como por ejemplo
 ```/storage/images/imagen/imagen.jpg```
 
 
-##### Imagen local responsiva
+##### Imagen local o externa responsiva
 
 ```
-<ResponsiveLocalUrl>::= <localBaseUrl>
+<ResponsiveUrl>::= <baseUrl>
 ```
 Como por ejemplo 
 ```/storage/images/imagen/```
 
-##### Imagen externa no responsiva
-```
-<nonResponsiveExternalUrl>::= <externalBaseUrl>/<dirImage>/<imageName>
-```
-
-##### Imagen externa responsiva
-```
-<ResponsiveExternalUrl>::= <externalBaseUrl>/<dirImage>
-```
 
 ## Ejemplos de uso
 
@@ -430,8 +218,10 @@ NameHelper::generateLaravelConvetionalResponsiveImageDirUrl($imageName)
 Lo que generara una url de imagen como 
 ```/storage/images/imagen/```
 
+Para el caso de imagenes no responsivas
+
 ```
-NameHelper::generateLaravelConvetionalNonResponsiveImageUrl($imageName)
+NameHelper::generateLaravelConvetionalImageUrl($imageName)
 ```
 
 Lo que generara una url de imagen como 
@@ -447,15 +237,15 @@ De manera que los nombres para cada una de las imagenes responsive deben obtener
 NameHelper::generateResponsiveImageUrls($imageName, $baseUrl);
 ```
 
-O por medio de comandos mas sencillos como 
-```
-NameHelper::generateLaravelConvetionalResponsiveImageUrls($imageName)
-```
-
 o 
 
 ```
-NameHelper::generateConvetionalResponsiveImageUrls($imageName)
+NameHelper::generateConvetionalResponsiveImageUrls($imageName,$baseUrl)
+```
+
+O 
+```
+NameHelper::generateLaravelConvetionalResponsiveImageUrls($imageName)
 ```
 
 ### Find me on:

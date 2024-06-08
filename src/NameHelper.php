@@ -18,9 +18,9 @@ class NameHelper {
 
     }
 
-    public static function generateLaravelConvetionalNonResponsiveImageUrl($imageName){
+    public static function generateLaravelConvetionalImageUrl($imageName){
 
-        return self::generateConvetionalNonResponsiveImageUrl($imageName,"/storage/images");
+        return self::generateConvetionalImageUrl($imageName,"/storage/images");
 
     }
 
@@ -32,11 +32,11 @@ class NameHelper {
 
     }
 
-    public static function generateConvetionalNonResponsiveImageUrl($imageName,$baseUrl){
+    public static function generateConvetionalImageUrl($imageName,$baseUrl){
 
         $conventionalBaseUrl=self::generateConvetionalImageDirUrl($imageName,$baseUrl);
 
-        return self::generateNonResponsiveImageUrl($imageName, $conventionalBaseUrl);
+        return self::generateImageUrl($imageName, $conventionalBaseUrl);
 
     }
 
@@ -72,7 +72,7 @@ class NameHelper {
 
     }
 
-    public static function generateNonResponsiveImageUrl($imageName,$baseUrl){
+    public static function generateImageUrl($imageName,$baseUrl){
     
         $imageName=self::transformNameToUrlName($imageName);
 
