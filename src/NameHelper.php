@@ -2,25 +2,36 @@
 
 namespace Israeldavidvm\NameHelper;
 
+use Exception;
+
 class NameHelper {
 
     public static $responsiveImageSizes=[360,720,1080,1440,1800,2160,2880,3600,4320];
 
     public static function generateLaravelConvetionalResponsiveImageUrls($imageName){
 
-        return self::generateConvetionalResponsiveImageUrls($imageName,"/storage/images");
+        return self::generateConvetionalResponsiveImageUrls(
+            $imageName,
+            "/storage/images"
+        );
 
     }
 
     public static function generateLaravelConvetionalResponsiveImageDirUrl($imageName){
 
-        return self::generateConvetionalImageDirUrl($imageName,"/storage/images");
+        return self::generateConvetionalImageDirUrl(
+            $imageName,
+            "/storage/images"
+        );
 
     }
 
     public static function generateLaravelConvetionalImageUrl($imageName){
 
-        return self::generateConvetionalImageUrl($imageName,"/storage/images");
+        return self::generateConvetionalImageUrl(
+            $imageName,
+            "/storage/images"
+        );
 
     }
 
@@ -28,7 +39,10 @@ class NameHelper {
 
         $conventionalBaseUrl=self::generateConvetionalImageDirUrl($imageName,$baseUrl);
 
-        return self::generateResponsiveImageUrls($imageName, $conventionalBaseUrl);
+        return self::generateResponsiveImageUrls(
+            $imageName, 
+            $conventionalBaseUrl
+        );
 
     }
 
@@ -36,7 +50,10 @@ class NameHelper {
 
         $conventionalBaseUrl=self::generateConvetionalImageDirUrl($imageName,$baseUrl);
 
-        return self::generateImageUrl($imageName, $conventionalBaseUrl);
+        return self::generateImageUrl(
+            $imageName, 
+            $conventionalBaseUrl
+        );
 
     }
 
@@ -50,33 +67,42 @@ class NameHelper {
     public static function generateResponsiveImageUrls($imageName,$baseUrl){
     
         $responsiveImageUrls=null;
+
+        $imageName=self::transformNameToUrlName($imageName);
      
         $responsiveImageNames=self::generateResponsiveImageNames($imageName);
     
         foreach ($responsiveImageNames as $size => $responsiveImageName) {
 
-            $responsiveImageName=self::transformNameToUrlName($responsiveImageName);
-
-            $responsiveImageUrls[$size]="$baseUrl/$responsiveImageName";
+            $responsiveImageUrls[$size]=self::generateImageUrl($responsiveImageName,$baseUrl);
 
         }
 
         return $responsiveImageUrls;
     }
 
-    public static function generateConvetionalImageDirUrl($imageName,$baseUrl){
+    public static function generateConvetionalImageDirUrl($imageName,$baseUrl=null){
 
         $responsiveDirName=self::transformNameToUrlName(self::getFileOrDirNameWithoutExt($imageName));
 
-        return "$baseUrl/$responsiveDirName";
+        if($baseUrl===null){
+            return $responsiveDirName;
+        }
+
+        return self::concatenateUrls($baseUrl,$responsiveDirName);
+
 
     }
 
-    public static function generateImageUrl($imageName,$baseUrl){
-    
+    public static function generateImageUrl($imageName,$baseUrl=null){
+
         $imageName=self::transformNameToUrlName($imageName);
 
-        return "$baseUrl/$imageName";
+        if($baseUrl===null){
+            return $imageName;
+        }
+
+        return self::concatenateUrls($baseUrl,$imageName);
 
     }
 
@@ -89,6 +115,12 @@ class NameHelper {
     public static function generateResponsiveImageNames($imageName){
         
         $responsiveImageNames=null;
+
+        $lastDotPosition = strrpos($imageName, ".");
+    
+        if($lastDotPosition === false){
+            throw new Exception("\$imageName='$imageName' de ".__FUNCTION__." pareciera no tener una extension");
+        }
 
         $responsiveImageNames[]="$imageName";
 
@@ -111,6 +143,7 @@ class NameHelper {
      * @param string $fileLocatorName puede ser un nombre de archivo, 
      * ruta en el sistema de archivos o url
      * @return string extension del archivo
+     * @throws Exception si $fileLocatorName no a punta a un archivo 
      */
     public static function getExtOfFile($fileLocatorName) {
 
@@ -118,8 +151,10 @@ class NameHelper {
 
         $lastDotPosition = strrpos($fileName, ".");
     
-        assert(!$lastDotPosition === false, "el fileLocatorName pareciera no tener una extension");
-    
+        if($lastDotPosition === false){
+            throw new Exception("\$fileLocatorName='$fileLocatorName' de ".__FUNCTION__." pareciera no tener una extension");
+        }
+        
         return substr($fileName, $lastDotPosition + 1);
     }
 
@@ -141,7 +176,11 @@ class NameHelper {
             return $fileName;
         }    
             
-        $fileOrDirNameWithoutExt=substr($fileName,0, $lastDotPosition);
+        $fileOrDirNameWithoutExt=substr(
+            $fileName,
+            0, 
+            $lastDotPosition
+        );
     
         return $fileOrDirNameWithoutExt;
         
@@ -159,16 +198,78 @@ class NameHelper {
 
         $lastSlashPosition = strrpos($fileLocatorName, "/");
     
+        //si no se encuentra el slash se asume que 
+        //es un nombre de archivo o directorio
         if ($lastSlashPosition === false) {
+            //si no se encuentra un punto (.)
             return $fileLocatorName;
         }    
 
-        $fileOrDirName=substr($fileLocatorName,$lastSlashPosition+1);
+        $lastPosition=mb_strlen($fileLocatorName)-1;
+
+        //si el slash no esta en la ultima posicion
+        if($lastSlashPosition!=$lastPosition){
+
+            return $fileOrDirName=
+                substr(
+                    $fileLocatorName,
+                    $lastSlashPosition+1
+                );
+
+
+        }
+
+        $penultimateSlashPosition = strrpos(
+            $fileLocatorName, 
+            "/",
+            -2
+        );
+
+        $fileOrDirName=substr(
+            $fileLocatorName,
+            $penultimateSlashPosition+1,
+            ($lastPosition-$penultimateSlashPosition-1)
+            
+        );
     
         return $fileOrDirName;
         
     }
+
+    public static function concatenateUrls($url1,$url2){
+        $lastUrl1Position=mb_strlen($url1)-1;
+        
+        $lastCharacterUrl1=substr(
+            $url1,
+            $lastUrl1Position,
+        );
+
+        if($lastCharacterUrl1==='/'){
+
+            $url1=substr(
+                $url1,
+                0,
+                -1
+            );
+        }
+
+        $firstCharacterUrl2=substr(
+            $url2,
+            0,
+            1
+        );
+
+        if($firstCharacterUrl2==='/'){
+            $url2=substr(
+                $url2,
+                1,
+            );
+        }
+
+        return "$url1/$url2";;
     
+    }
+
     /**
      * Al pasar como parametro $name="hello world" retornara hello-world
      *
@@ -218,7 +319,7 @@ class NameHelper {
         
         $name = str_replace(
             array(
-                "\/","\\", "¨", "º",
+                "/","\\", "¨", "º",
                 "$", "%", "&", "~",
                 "(", ")", "¿", "?",
                 "[", "]", "{", "}",

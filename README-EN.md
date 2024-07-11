@@ -1,7 +1,7 @@
 
 # NameHelper
 
-[Readme original version](./README.md)
+[Readme version in English](./README-EN.md)
 
 ## Manage file names, responsive images, URLs and more with ease!
 
@@ -44,19 +44,19 @@ The library also provides a number of ways to work with file names present in wh
 
 So we can
 
-#### Return the extension of a file from a <fileLocatorName>. Note, the file should not be a directory since directories do not have extensions, an assertion will be issued if a directory is passed instead of a file.
+#### Return the extension of a file from a \<fileLocatorName\>. Note, the file should not be a directory since directories do not have extensions, an assertion will be issued if a directory is passed instead of a file.
 
 ```
 NameHelper::getExtOfFile($fileLocatorName);
 ```
 
-#### Return the name of a file or directory without the extension from a <fileLocatorName>
+#### Return the name of a file or directory without the extension from a \<fileLocatorName\>
 
 ```
 NameHelper::getFileOrDirNameWithoutExt($fileLocatorName);
 ```
 
-#### Returns the name of a file or directory from a <fileLocatorName>
+#### Returns the name of a file or directory from a \<fileLocatorName\>
 
 
 ```
@@ -205,7 +205,7 @@ For example
 ```/storage/images/image/```
 
 
-## Usage examples
+### Examples of use
 
 #### Store the url of the images in the database:
 
@@ -247,15 +247,101 @@ EITHER
 ```
 NameHelper::generateLaravelConvectionResponsiveImageUrls($imageName)
 ```
+#### More usage examples
+```
+Testing the output of the methods with
+
+$fileLocator='/image.png'
+$baseUrl='/cachapa/'
+
+Name Helper::generate Laravel ConventionalResponsiveImageUrls('/image.png')=[
+/storage/images/image/image.png
+/storage/images/image/360-image.png
+/storage/images/image/720-image.png
+/storage/images/image/1080-image.png
+/storage/images/image/1440-image.png
+/storage/images/image/1800-image.png
+/storage/images/image/2160-image.png
+/storage/images/image/2880-image.png
+/storage/images/image/3600-image.png
+/storage/images/image/4320-image.png
+]
+Name Helper::generate Laravel ConventionalResponsiveImageDirUrl('/imagen.png')=/storage/images/imagen
+Name Helper::generate Laravel ConvectionalImageUrl('/imagen.png')=/storage/images/image/imagen.png
+NameHelper::generateConvetionalResponsiveImageUrls('/image.png','/cachapa/')=[
+/cachapa/image/image.png
+/cachapa/image/360-image.png
+/cachapa/image/720-image.png
+/cachapa/image/1080-image.png
+/cachapa/image/1440-image.png
+/cachapa/image/1800-image.png
+/cachapa/image/2160-image.png
+/cachapa/image/2880-image.png
+/cachapa/image/3600-image.png
+/cachapa/image/4320-image.png
+]
+NameHelper::generateConvectionalImageUrl('/imagen.png','/cachapa/')=/cachapa/image/imagen.png
+NameHelper::generateResponsiveImageUrls('/image.png','/cachapa/')=[
+/cachapa/image.png
+/cachapa/360-image.png
+/cachapa/720-image.png
+/cachapa/1080-image.png
+/cachapa/1440-image.png
+/cachapa/1800-image.png
+/cachapa/2160-image.png
+/cachapa/2880-image.png
+/cachapa/3600-image.png
+/cachapa/4320-image.png
+]
+NameHelper::generateConvectionalImageDirUrl('/image.png','/cachapa/')=/cachapa/image
+Name Helper::generate Image Url('/imagen.png','/cachapa/')=/cachapa/imagen.png
+Name Helper::generate Responsive Image Names('/image.png')=[
+/image.png
+360-/image.png
+720-/image.png
+1080-/image.png
+1440-/image.png
+1800-/image.png
+2160-/image.png
+2880-/image.png
+3600-/image.png
+4320-/image.png
+]
+NameHelper::transformNameToUrlName('/image.png')=image.png
+Name Helper::get File Or DirName('/imagen.png')=imagen.png
+NameHelper::getFileOrDirNameWithoutExt('/image.png')=image
+NameHelper::getExtOfFile('/image.png')=png
+
+Testing the output of the methods with
+
+$fileLocator='/image/'
+$baseUrl='/cachapa/'
+
+$imageName='image' from generateResponsiveImageNames appears to have no extension
+NameHelper::generateLaravelConvectionResponsiveImageDirUrl('/image/')=/storage/images/image
+NameHelper::generateLaravelConvectionalImageUrl('/image/')=/storage/images/image/image
+$imageName='image' from generateResponsiveImageNames appears to have no extension
+NameHelper::generateConvectionalImageUrl('/image/','/cachapa/')=/cachapa/image/image
+$imageName='image' from generateResponsiveImageNames appears to have no extension
+NameHelper::generateConvectionalImageDirUrl('/image/','/cachapa/')=/cachapa/image
+NameHelper::generateImageUrl('/image/','/cachapa/')=/cachapa/image
+$imageName='/image/' from generateResponsiveImageNames appears to have no extension
+NameHelper::transformNameToUrlName('/image/')=image
+NameHelper::getFileOrDirName('/image/')=image
+NameHelper::getFileOrDirNameWithoutExt('/image/')=image
+$fileLocatorName='/image/' from getExtOfFile appears to have no extension
+```
+
+
 ### Find me on:
 [![GITHUB](https://img.shields.io/badge/Github-israeldavidvm-gray?style=for-the-badge&logo=github&logoColor=white&labelColor=101010)](https://github.com/israeldavidvm)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-israeldavidvm-0077B5?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=101010)](https://www.linkedin.com/in/israeldavidvm/)
-[![Twitter](https://img.shields.io/badge/Twitter-@israeldavidvm-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white&labelColor=101010)](https://twitter.com/israeldavidvm)
-[![Facebook](https://img.shields.io/badge/Facebook-israeldavidvm-1877F2?style=for-the-badge&logo=facebook&logoColor=white&labelColor=101010)](https://www.facebook.com/israeldavidvm)
-[![Instagram](https://img.shields.io/badge/Instagram-@israeldavidvmv-gray?style=for-the-badge&logo=instagram&logoColor=white&labelColor=101010)](https://www.instagram.com/israeldavidvm/)
-[![TikTok](https://img.shields.io/badge/TikTok-@israeldavidvm-E4405F?style=for-the-badge&logo=tiktok&logoColor=white&labelColor=101010)](https://www.tiktok.com/@israeldavidvm)
-[![YouTube](https://img.shields.io/badge/YouTube-@israeldavidvm-FF0000?style=for-the-badge&logo=youtube&logoColor=white&labelColor=101010)](https://www.youtube.com/channel/UCmZLFpEPNdwpJOhal0wry7A)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-israeldavidvm-0077B5?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=101010)](https://www.linkedin.com/ in/israeldavidvm/)
+[![Twitter](https://img.shields.io/badge/Twitter-@israeldavidvm-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white&labelColor=101010)](https://twitter.com/israeldavidvm )
+[![Facebook](https://img.shields.io/badge/Facebook-israeldavidvm-1877F2?style=for-the-badge&logo=facebook&logoColor=white&labelColor=101010)](https://www.facebook.com/ israeldavidvm)
+[![Instagram](https://img.shields.io/badge/Instagram-@israeldavidvmv-gray?style=for-the-badge&logo=instagram&logoColor=white&labelColor=101010)](https://www.instagram.com /israeldavidvm/)
+[![TikTok](https://img.shields.io/badge/TikTok-@israeldavidvm-E4405F?style=for-the-badge&logo=tiktok&logoColor=white&labelColor=101010)](https://www.tiktok.com /@israeldavidvm)
+[![YouTube](https://img.shields.io/badge/YouTube-@israeldavidvm-FF0000?style=for-the-badge&logo=youtube&logoColor=white&labelColor=101010)](https://www.youtube.com /channel/UCmZLFpEPNdwpJOhal0wry7A)
 
-## Technologies used / Tecnologias usadas
+## Technologies used / Used technologies
 
-[![PHP](https://img.shields.io/badge/php-blue?logo=php&style=for-the-badge&logoColor=blue&labelColor=gray)]() 
+[![PHP](https://img.shields.io/badge/php-blue?logo=php&style=for-the-badge&logoColor=blue&labelColor=gray)]()

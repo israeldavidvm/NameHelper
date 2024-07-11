@@ -44,19 +44,19 @@ La libreria tambien proporciona una serie de formas de trabajar con los nombres 
 
 De manera que podemos
 
-#### Retornar la extension de un archivo a partir de un <fileLocatorName>. Nota el archivo no deberia ser un directorio pues los directorios no tienen extension se emitira un assertion en caso de pasar un directorio en lugar de un archivo 
+#### Retornar la extension de un archivo a partir de un \<fileLocatorName\>. Nota el archivo no deberia ser un directorio pues los directorios no tienen extension se emitira un assertion en caso de pasar un directorio en lugar de un archivo 
 
 ```
 NameHelper::getExtOfFile($fileLocatorName);
 ```
 
-#### Retornar el nombre de un archivo o directorio sin la extension a partir de un <fileLocatorName> 
+#### Retornar el nombre de un archivo o directorio sin la extension a partir de un \<fileLocatorName\> 
 
 ```
 NameHelper::getFileOrDirNameWithoutExt($fileLocatorName);
 ```
 
-#### Retorna el nombre de un archivo o directorio a partir de un <fileLocatorName> 
+#### Retorna el nombre de un archivo o directorio a partir de un \<fileLocatorName\> 
 
 
 ```
@@ -205,7 +205,7 @@ Como por ejemplo
 ```/storage/images/imagen/```
 
 
-## Ejemplos de uso
+### Ejemplos de uso
 
 #### Almacenar la url de las imagenes en la bd:
 
@@ -247,6 +247,91 @@ O
 ```
 NameHelper::generateLaravelConvetionalResponsiveImageUrls($imageName)
 ```
+#### Mas ejemplos de uso
+```
+Probando la salida de los metodos con
+
+$fileLocator='/imagen.png'
+$baseUrl='/cachapa/'
+
+NameHelper::generateLaravelConvetionalResponsiveImageUrls('/imagen.png')=[
+/storage/images/imagen/imagen.png
+/storage/images/imagen/360-imagen.png
+/storage/images/imagen/720-imagen.png
+/storage/images/imagen/1080-imagen.png
+/storage/images/imagen/1440-imagen.png
+/storage/images/imagen/1800-imagen.png
+/storage/images/imagen/2160-imagen.png
+/storage/images/imagen/2880-imagen.png
+/storage/images/imagen/3600-imagen.png
+/storage/images/imagen/4320-imagen.png
+]
+NameHelper::generateLaravelConvetionalResponsiveImageDirUrl('/imagen.png')=/storage/images/imagen
+NameHelper::generateLaravelConvetionalImageUrl('/imagen.png')=/storage/images/imagen/imagen.png
+NameHelper::generateConvetionalResponsiveImageUrls('/imagen.png','/cachapa/')=[
+/cachapa/imagen/imagen.png
+/cachapa/imagen/360-imagen.png
+/cachapa/imagen/720-imagen.png
+/cachapa/imagen/1080-imagen.png
+/cachapa/imagen/1440-imagen.png
+/cachapa/imagen/1800-imagen.png
+/cachapa/imagen/2160-imagen.png
+/cachapa/imagen/2880-imagen.png
+/cachapa/imagen/3600-imagen.png
+/cachapa/imagen/4320-imagen.png
+]
+NameHelper::generateConvetionalImageUrl('/imagen.png','/cachapa/')=/cachapa/imagen/imagen.png
+NameHelper::generateResponsiveImageUrls('/imagen.png','/cachapa/')=[
+/cachapa/imagen.png
+/cachapa/360-imagen.png
+/cachapa/720-imagen.png
+/cachapa/1080-imagen.png
+/cachapa/1440-imagen.png
+/cachapa/1800-imagen.png
+/cachapa/2160-imagen.png
+/cachapa/2880-imagen.png
+/cachapa/3600-imagen.png
+/cachapa/4320-imagen.png
+]
+NameHelper::generateConvetionalImageDirUrl('/imagen.png','/cachapa/')=/cachapa/imagen
+NameHelper::generateImageUrl('/imagen.png','/cachapa/')=/cachapa/imagen.png
+NameHelper::generateResponsiveImageNames('/imagen.png')=[
+/imagen.png
+360-/imagen.png
+720-/imagen.png
+1080-/imagen.png
+1440-/imagen.png
+1800-/imagen.png
+2160-/imagen.png
+2880-/imagen.png
+3600-/imagen.png
+4320-/imagen.png
+]
+NameHelper::transformNameToUrlName('/imagen.png')=imagen.png
+NameHelper::getFileOrDirName('/imagen.png')=imagen.png
+NameHelper::getFileOrDirNameWithoutExt('/imagen.png')=imagen
+NameHelper::getExtOfFile('/imagen.png')=png
+
+Probando la salida de los metodos con
+
+$fileLocator='/imagen/'
+$baseUrl='/cachapa/'
+
+$imageName='imagen' de generateResponsiveImageNames pareciera no tener una extension
+NameHelper::generateLaravelConvetionalResponsiveImageDirUrl('/imagen/')=/storage/images/imagen
+NameHelper::generateLaravelConvetionalImageUrl('/imagen/')=/storage/images/imagen/imagen
+$imageName='imagen' de generateResponsiveImageNames pareciera no tener una extension
+NameHelper::generateConvetionalImageUrl('/imagen/','/cachapa/')=/cachapa/imagen/imagen
+$imageName='imagen' de generateResponsiveImageNames pareciera no tener una extension
+NameHelper::generateConvetionalImageDirUrl('/imagen/','/cachapa/')=/cachapa/imagen
+NameHelper::generateImageUrl('/imagen/','/cachapa/')=/cachapa/imagen
+$imageName='/imagen/' de generateResponsiveImageNames pareciera no tener una extension
+NameHelper::transformNameToUrlName('/imagen/')=imagen
+NameHelper::getFileOrDirName('/imagen/')=imagen
+NameHelper::getFileOrDirNameWithoutExt('/imagen/')=imagen
+$fileLocatorName='/imagen/' de getExtOfFile pareciera no tener una extension
+```
+
 
 ### Find me on:
 [![GITHUB](https://img.shields.io/badge/Github-israeldavidvm-gray?style=for-the-badge&logo=github&logoColor=white&labelColor=101010)](https://github.com/israeldavidvm)
