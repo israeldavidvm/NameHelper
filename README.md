@@ -268,6 +268,7 @@ NameHelper::generateLaravelConvetionalResponsiveImageUrls('/imagen.png')=[
 ]
 NameHelper::generateLaravelConvetionalResponsiveImageDirUrl('/imagen.png')=/storage/images/imagen
 NameHelper::generateLaravelConvetionalImageUrl('/imagen.png')=/storage/images/imagen/imagen.png
+NameHelper::generateLaravelConvetionalImagePath('/imagen.png')=/images/imagen/imagen.png
 NameHelper::generateConvetionalResponsiveImageUrls('/imagen.png','/cachapa/')=[
 /cachapa/imagen/imagen.png
 /cachapa/imagen/360-imagen.png
@@ -320,6 +321,7 @@ $baseUrl='/cachapa/'
 $imageName='imagen' de generateResponsiveImageNames pareciera no tener una extension
 NameHelper::generateLaravelConvetionalResponsiveImageDirUrl('/imagen/')=/storage/images/imagen
 NameHelper::generateLaravelConvetionalImageUrl('/imagen/')=/storage/images/imagen/imagen
+NameHelper::generateLaravelConvetionalImagePath('/imagen/')=/images/imagen/imagen
 $imageName='imagen' de generateResponsiveImageNames pareciera no tener una extension
 NameHelper::generateConvetionalImageUrl('/imagen/','/cachapa/')=/cachapa/imagen/imagen
 $imageName='imagen' de generateResponsiveImageNames pareciera no tener una extension

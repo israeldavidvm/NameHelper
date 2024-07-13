@@ -109,7 +109,7 @@ For which it is assumed that the variations of a responsive image are grouped in
 
 It also seeks to facilitate the use of conventions: for which a name generation is standardized for the folders that store the variations of a responsive image and the folder where the images are stored in Laravel.
 
-So there are special methods that follow these conventions, which include the word Conventional and LaravelConvectional.
+So there are special methods that follow these conventions, which include the word Conventional and LaravelConvection.
 
 #### Grammar for urls
 Notation Conventions for Grammar:
@@ -231,7 +231,7 @@ Which will generate an image url like
 
 Note that responsive images are stored in a directory
 
-So the names for each of the responsive images must be obtained through
+
 
 ```
 NameHelper::generateResponsiveImageUrls($imageName, $baseUrl);
@@ -268,7 +268,8 @@ Name Helper::generate Laravel ConventionalResponsiveImageUrls('/image.png')=[
 ]
 Name Helper::generate Laravel ConventionalResponsiveImageDirUrl('/imagen.png')=/storage/images/imagen
 Name Helper::generate Laravel ConvectionalImageUrl('/imagen.png')=/storage/images/image/imagen.png
-NameHelper::generateConvetionalResponsiveImageUrls('/image.png','/cachapa/')=[
+Name Helper::generate Laravel ConvectionalImagePath('/imagen.png')=/images/imagen/imagen.png
+NameHelper::generateConvectionalResponsiveImageUrls('/image.png','/cachapa/')=[
 /cachapa/image/image.png
 /cachapa/image/360-image.png
 /cachapa/image/720-image.png
@@ -280,7 +281,7 @@ NameHelper::generateConvetionalResponsiveImageUrls('/image.png','/cachapa/')=[
 /cachapa/image/3600-image.png
 /cachapa/image/4320-image.png
 ]
-NameHelper::generateConvectionalImageUrl('/imagen.png','/cachapa/')=/cachapa/image/imagen.png
+NameHelper::generateConvectionalImageUrl('/image.png','/cachapa/')=/cachapa/image/image.png
 NameHelper::generateResponsiveImageUrls('/image.png','/cachapa/')=[
 /cachapa/image.png
 /cachapa/360-image.png
@@ -320,6 +321,7 @@ $baseUrl='/cachapa/'
 $imageName='image' from generateResponsiveImageNames appears to have no extension
 NameHelper::generateLaravelConvectionResponsiveImageDirUrl('/image/')=/storage/images/image
 NameHelper::generateLaravelConvectionalImageUrl('/image/')=/storage/images/image/image
+NameHelper::generateLaravelConvectionalImagePath('/image/')=/images/image/image
 $imageName='image' from generateResponsiveImageNames appears to have no extension
 NameHelper::generateConvectionalImageUrl('/image/','/cachapa/')=/cachapa/image/image
 $imageName='image' from generateResponsiveImageNames appears to have no extension

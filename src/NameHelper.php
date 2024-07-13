@@ -35,6 +35,15 @@ class NameHelper {
 
     }
 
+    public static function generateLaravelConvetionalImagePath($imageName){
+
+        return self::generateConvetionalImageUrl(
+            $imageName,
+            "/images"
+        );
+
+    }
+
     public static function generateConvetionalResponsiveImageUrls($imageName,$baseUrl){
 
         $conventionalBaseUrl=self::generateConvetionalImageDirUrl($imageName,$baseUrl);
