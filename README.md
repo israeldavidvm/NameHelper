@@ -1,4 +1,3 @@
-[[_TOC_]]
 # NameHelper 
 
 [Readme version in English](./README-EN.md)
