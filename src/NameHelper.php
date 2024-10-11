@@ -8,58 +8,58 @@ class NameHelper {
 
     public static $responsiveImageSizes=[360,720,1080,1440,1800,2160,2880,3600,4320];
 
-    public static function generateLaravelConvetionalResponsiveImageUrls($imageName){
+    public static function generateRoutesToResponsiveImagesInConvetionalDirInLaravelConvetionalLink($imageName){
 
-        return self::generateConvetionalResponsiveImageUrls(
+        return self::generateRoutesToResponsiveImagesInConvetionalDirInBaseRoute(
             $imageName,
             "/storage/images"
         );
 
     }
 
-    public static function generateLaravelConvetionalResponsiveImageDirUrl($imageName){
+    public static function generateRouteToConvetionalDirInLaravelConvetionalLink($imageName){
 
-        return self::generateConvetionalImageDirUrl(
+        return self::generateRouteToConvetionalImageDirInBaseRoute(
             $imageName,
             "/storage/images"
         );
 
     }
 
-    public static function generateLaravelConvetionalImageUrl($imageName){
+    public static function generateRouteToImageInConvetionalDirInLaravelConvetionalLink($imageName){
 
-        return self::generateConvetionalImageUrl(
+        return self::generateRouteToImageInConvetionalDirInBaseRoute(
             $imageName,
             "/storage/images"
         );
 
     }
 
-    public static function generateLaravelConvetionalImagePath($imageName){
+    public static function generateRouteToImageInConvetionalDirInLaravelConvetionalStorage($imageName){
 
-        return self::generateConvetionalImageUrl(
+        return self::generateRouteToImageInConvetionalDirInBaseRoute(
             $imageName,
             "/images"
         );
 
     }
 
-    public static function generateConvetionalResponsiveImageUrls($imageName,$baseUrl){
+    public static function generateRoutesToResponsiveImagesInConvetionalDirInBaseRoute($imageName,$baseUrl){
 
-        $conventionalBaseUrl=self::generateConvetionalImageDirUrl($imageName,$baseUrl);
+        $conventionalBaseUrl=self::generateRouteToConvetionalImageDirInBaseRoute($imageName,$baseUrl);
 
-        return self::generateResponsiveImageUrls(
+        return self::generateRoutesToResponsiveImagesInBaseRoute(
             $imageName, 
             $conventionalBaseUrl
         );
 
     }
 
-    public static function generateConvetionalImageUrl($imageName,$baseUrl){
+    public static function generateRouteToImageInConvetionalDirInBaseRoute($imageName,$baseUrl){
 
-        $conventionalBaseUrl=self::generateConvetionalImageDirUrl($imageName,$baseUrl);
+        $conventionalBaseUrl=self::generateRouteToConvetionalImageDirInBaseRoute($imageName,$baseUrl);
 
-        return self::generateImageUrl(
+        return self::generateRouteToImageInBaseRoute(
             $imageName, 
             $conventionalBaseUrl
         );
@@ -73,45 +73,45 @@ class NameHelper {
      * $baseUrl/$responsiveImageName
      * Nota se decidio que la funcion realizara una transfromacion del nombre de la imagen
      */
-    public static function generateResponsiveImageUrls($imageName,$baseUrl){
+    public static function generateRoutesToResponsiveImagesInBaseRoute($imageName,$baseUrl){
     
         $responsiveImageUrls=null;
 
-        $imageName=self::transformNameToUrlName($imageName);
+        $imageName=self::transformNameToRouteName($imageName);
      
         $responsiveImageNames=self::generateResponsiveImageNames($imageName);
     
         foreach ($responsiveImageNames as $size => $responsiveImageName) {
 
-            $responsiveImageUrls[$size]=self::generateImageUrl($responsiveImageName,$baseUrl);
+            $responsiveImageUrls[$size]=self::generateRouteToImageInBaseRoute($responsiveImageName,$baseUrl);
 
         }
 
         return $responsiveImageUrls;
     }
 
-    public static function generateConvetionalImageDirUrl($imageName,$baseUrl=null){
+    public static function generateRouteToConvetionalImageDirInBaseRoute($imageName,$baseUrl=null){
 
-        $responsiveDirName=self::transformNameToUrlName(self::getFileOrDirNameWithoutExt($imageName));
+        $responsiveDirName=self::transformNameToRouteName(self::getFileOrDirNameWithoutExt($imageName));
 
         if($baseUrl===null){
             return $responsiveDirName;
         }
 
-        return self::concatenateUrls($baseUrl,$responsiveDirName);
+        return self::concatenateRoutes($baseUrl,$responsiveDirName);
 
 
     }
 
-    public static function generateImageUrl($imageName,$baseUrl=null){
+    public static function generateRouteToImageInBaseRoute($imageName,$baseUrl=null){
 
-        $imageName=self::transformNameToUrlName($imageName);
+        $imageName=self::transformNameToRouteName($imageName);
 
         if($baseUrl===null){
             return $imageName;
         }
 
-        return self::concatenateUrls($baseUrl,$imageName);
+        return self::concatenateRoutes($baseUrl,$imageName);
 
     }
 
@@ -119,7 +119,7 @@ class NameHelper {
      * Genera las versiones responsive para un nombre de
      * imagen:
      * Warning; No transforma los nombres de la imagen a una url
-     * para ello consulte la funcion transformNameToUrlName($string)
+     * para ello consulte la funcion transformNameToRouteName($string)
      */
     public static function generateResponsiveImageNames($imageName){
         
@@ -245,7 +245,7 @@ class NameHelper {
         
     }
 
-    public static function concatenateUrls($url1,$url2){
+    public static function concatenateRoutes($url1,$url2){
         $lastUrl1Position=mb_strlen($url1)-1;
         
         $lastCharacterUrl1=substr(
@@ -283,7 +283,7 @@ class NameHelper {
      * Al pasar como parametro $name="hello world" retornara hello-world
      *
      */
-    public static function transformNameToUrlName($name){
+    public static function transformNameToRouteName($name){
 
         $name=mb_strtolower($name, 'UTF-8');
     
@@ -340,5 +340,4 @@ class NameHelper {
         return $name;
     }
     
-
 }
