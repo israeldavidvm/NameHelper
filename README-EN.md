@@ -74,12 +74,12 @@ www.miblog.com/blog/hello-world
 
 Here we can use the function
 
-```NameHelper::transformNameToUrlName($name)```
+```NameHelper::transformNameToRouteName($name)```
 
 Which when passed as a parameter
 $name="hello world" will return hello-world
 
-### Name generation for responsive images
+### Name generator for responsive Images
 
 If we want to generate a list of names for responsive images, we execute the method
 
@@ -109,10 +109,8 @@ For which it is assumed that the variations of a responsive image are grouped in
 
 It also seeks to facilitate the use of conventions: for which a name generation is standardized for the folders that store the variations of a responsive image and the folder where the images are stored in Laravel.
 
-So there are special methods that follow these conventions, which include the word Conventional and LaravelConvection.
-
 #### Grammar for urls
-Notation Conventions for Grammar:
+##### Notation conventions for grammar:
 
 The <> are used to surround a non-terminal symbol
 
@@ -130,131 +128,161 @@ The + indicates that the expression is repeated 1 or more times
 
 If you want to use one of the previous characters, you must precede \ with
 
+##### URL grammar
+
 So the library will use the following grammar for its urls
 
-```<baseUrl>/<dirImage>?/<imageName>?```
+```<baseUrl>/<dirImage>(/<imageName>)? | <baseUrl>/<imageName>```
 
 Where:
-Methods that contain the word LaravelConvectional usually give the value to
+Methods that contain InLaravelConvectionLink usually give the value to
 ```
-<baseUrl> of "/storage/images"
+<baseUrl> "/storage/images"
+```
+And the methods that contain InLaravelConvectionalStorage usually give the value to
+```
+<baseUrl> "/images"
 ```
 
 Where:
-Methods that contain the word Conventional usually give the value to
+Methods that contain InConvectionalDir usually give the value to
 ```
-<dirImage> from the result of NameHelper::transformNameToUrlName($imageName)
+<dirImage> from the result of NameHelper::transformNameToRouteName($imageName)
 ```
 
 Note that the difference between an external and internal url is based on the value of ```<baseUrl>```
 
-##### Local non-responsive image for laravel
+### Generation of routes for Responsive, non-responsive local and external Images
 
+The difference between a responsive image and one that is not is that for the responsive image, sets of URLs will be used, one for each variation of the image and not in the other. So they will have a shape like the following
+
+
+#### Path to local or external non-responsive image
 ```
-<nonResponsiveLocalUrl>::= <baseUrl>/<dirImage>?/<imageName>
+<NonResponsiveImageUrl>::= <baseUrl>(/<dirImage>)?/<imageName>
 ```
 
-For example
+Like for example
 
 ```/storage/images/imagen/imagen.jpg```
 
 
-##### Responsive local image for laravel
+#### Routes to local or external responsive images
+
+For this case, a set of fruits is generated with the syntax of the non-responsive images
 
 ```
-<ResponsiveLocalUrl>::= <baseUrl>/<dirImage>
-```
-For example
-```/storage/images/image/```
-
-##### Conventional local or external non-responsive image
-```
-<ConventionalNonResponsiveUrl>::= <baseUrl>/<dirImage>/<imageName>
+<ResponsiveVariationImageUrl>::= <baseUrl>(/<dirImage>)?/<imageName>
 ```
 
-For example
+Like for example
 
-```/storage/images/imagen/imagen.jpg```
+```/storage/images/imagen/360-image.jpg```
 
-
-##### Conventional responsive local or external image
-
+#### ConventionalDir
+Where:
+Methods that contain InConvectionalDir usually give the value to
 ```
-<ConventionalResponsiveUrl>::= <baseUrl>/<dirImage>
-```
-For example
-```/storage/images/image/```
-
-
-##### Local or external non-responsive image
-```
-<nonResponsiveUrl>::= <baseUrl>/<imageName>
+<dirImage> from the result of NameHelper::transformNameToRouteName($imageName)
 ```
 
-For example
+#### External or internal
 
-```/storage/images/imagen/imagen.jpg```
+Note that the difference between an external and internal url is based on the value of ```<baseUrl>```
 
+### Store the paths to an image in the database:
 
-##### Responsive local or external image
+In order to allow the storage of images to be as flexible as possible, the following will be done.
 
-```
-<ResponsiveUrl>::= <baseUrl>
-```
-For example
-```/storage/images/image/```
+The path to the directory of the folder that contains it (only the folder without the image name) and the name of the image will be saved in the database.
+
+So that you can take that base route, the name of the image and generate a route or set of routes depending on whether the image is responsive or not.
+
+### Routes to be stored in the database of resources such as images or local directories following Laravel conventions:
+
+When storing the url of our resources (such as images, directories, etc.), we should consider storing the url that allows us to access the resource publicly; in the default Laravel configuration there is a route provided for this.
+
+So we developed a series of methods that end in InLaravelConvectionalLink that will generate a url to these routes.
+
+### Routes to work with the Storage of resources such as images or local directories following Laravel conventions:
+
+Just as there is a convention for routes to resources that are publicly accessible, there is a convention for actual routes to resources in the default Laravel configuration.
 
 
 ### Examples of use
 
-#### Store the url of the images in the database:
+#### Store the base path of an image in the database
 
-To store a responsive image in the database of a Laravel application, it is recommended to use
+As we said before, one of the approaches that can be taken to maximize flexibility when working with images
+
+It is only storing the path in which the image is stored
+
+##### Using Laravel convention and directors convention with the same image name for local images
+
+In the case in which we want to use the Laravel convention, it should be the one that is publicly accessible, a route that can be obtained through the method
 
 ```
-NameHelper::generateLaravelConvectionResponsiveImageDirUrl($imageName)
+NameHelper::generateRouteToConvectionalDirInLaravelConvectionalLink($imageName)
 ```
 
 Which will generate an image url like
+```/storage/images/dog-image/```
+
+Note that this method appends a folder to the end of the path that Laravel uses by convention
+
+##### Using only the directory convention with the same name as the image
+
+Which can be obtained by the method, note that depending on whether the url base is external or not, we will talk about external or internal image
+
+```
+NameHelper::generateRouteToConvectionalImageDirInBaseRoute($imageName,$baseUrl=null)
+
+```
+
+```
+<ResponsiveUrl>::= <baseUrl>/<dirImage>
+```
+Like for example
 ```/storage/images/image/```
 
-In the case of non-responsive images
-
-```
-NameHelper::generateLaravelConvectionalImageUrl($imageName)
-```
-
-Which will generate an image url like
-```/storage/images/imagen/imagen.jpg```
 
 #### Recover images in the database:
 
-Note that responsive images are stored in a directory
+In case you have stored the full path to the folder that contains the resource in the database as we recommend
 
-
-
-```
-NameHelper::generateResponsiveImageUrls($imageName, $baseUrl);
-```
-
-either
+The names of the images can be recovered in the following way
 
 ```
-NameHelper::generateConvectionResponsiveImageUrls($imageName,$baseUrl)
+NameHelper::generateRoutesToResponsiveImagesInBaseRoute($imageName, $baseUrl);
+```
+when the image is responsive or
+
+```
+NameHelper::generateRouteToImageInBaseRoute($imageName,$baseUrl=null)
+```
+
+when the image is not responsive.
+
+If you have not stored the full path to the folder that contains the resource in the database as we recommend
+
+```
+NameHelper::generateRoutesToResponsiveImagesInConvectionalDirInBaseRoute($imageName,$baseUrl)
 ```
 
 EITHER
 ```
-NameHelper::generateLaravelConvectionResponsiveImageUrls($imageName)
+NameHelper::generateRoutesToResponsiveImagesInConvectionalDirInLaravelConvectionalLink($imageName)
 ```
+who will add the necessary information
+
 #### More usage examples
-```
+
 Testing the output of the methods with
 
 $fileLocator='/image.png'
 $baseUrl='/cachapa/'
 
-Name Helper::generate Laravel ConventionalResponsiveImageUrls('/image.png')=[
+NameHelper::generateRoutesToResponsiveImagesInConvectionalDirInLaravelConvectionalLink('/image.png')=[
 /storage/images/image/image.png
 /storage/images/image/360-image.png
 /storage/images/image/720-image.png
@@ -266,10 +294,10 @@ Name Helper::generate Laravel ConventionalResponsiveImageUrls('/image.png')=[
 /storage/images/image/3600-image.png
 /storage/images/image/4320-image.png
 ]
-Name Helper::generate Laravel ConventionalResponsiveImageDirUrl('/imagen.png')=/storage/images/imagen
-Name Helper::generate Laravel ConvectionalImageUrl('/imagen.png')=/storage/images/image/imagen.png
-Name Helper::generate Laravel ConvectionalImagePath('/imagen.png')=/images/imagen/imagen.png
-NameHelper::generateConvectionalResponsiveImageUrls('/image.png','/cachapa/')=[
+NameHelper::generateRouteToConvectionalDirInLaravelConvectionalLink('/image.png')=/storage/images/image
+NameHelper::generateRouteToImageInConvectionalDirInLaravelConvectionalLink('/image.png')=/storage/images/image/image.png
+NameHelper::generateRouteToImageInConvectionalDirInLaravelConvectionalStorage('/image.png')=/images/image/image.png
+NameHelper::generateRoutesToResponsiveImagesInConvectionalDirInBaseRoute('/image.png','/cachapa/')=[
 /cachapa/image/image.png
 /cachapa/image/360-image.png
 /cachapa/image/720-image.png
@@ -281,8 +309,8 @@ NameHelper::generateConvectionalResponsiveImageUrls('/image.png','/cachapa/')=[
 /cachapa/image/3600-image.png
 /cachapa/image/4320-image.png
 ]
-NameHelper::generateConvectionalImageUrl('/image.png','/cachapa/')=/cachapa/image/image.png
-NameHelper::generateResponsiveImageUrls('/image.png','/cachapa/')=[
+NameHelper::generateRouteToImageInConvectionalDirInBaseRoute('/image.png','/cachapa/')=/cachapa/image/image.png
+NameHelper::generateRoutesToResponsiveImagesInBaseRoute('/image.png','/cachapa/')=[
 /cachapa/image.png
 /cachapa/360-image.png
 /cachapa/720-image.png
@@ -294,8 +322,8 @@ NameHelper::generateResponsiveImageUrls('/image.png','/cachapa/')=[
 /cachapa/3600-image.png
 /cachapa/4320-image.png
 ]
-NameHelper::generateConvectionalImageDirUrl('/image.png','/cachapa/')=/cachapa/image
-Name Helper::generate Image Url('/imagen.png','/cachapa/')=/cachapa/imagen.png
+NameHelper::generateRouteToConvectionalImageDirInBaseRoute('/image.png','/cachapa/')=/cachapa/image
+NameHelper::generateRouteToImageInBaseRoute('/image.png','/cachapa/')=/cachapa/image.png
 Name Helper::generate Responsive Image Names('/image.png')=[
 /image.png
 360-/image.png
@@ -308,7 +336,7 @@ Name Helper::generate Responsive Image Names('/image.png')=[
 3600-/image.png
 4320-/image.png
 ]
-NameHelper::transformNameToUrlName('/image.png')=image.png
+NameHelper::transformNameToRouteName('/image.png')=image.png
 Name Helper::get File Or DirName('/imagen.png')=imagen.png
 NameHelper::getFileOrDirNameWithoutExt('/image.png')=image
 NameHelper::getExtOfFile('/image.png')=png
@@ -319,19 +347,20 @@ $fileLocator='/image/'
 $baseUrl='/cachapa/'
 
 $imageName='image' from generateResponsiveImageNames appears to have no extension
-NameHelper::generateLaravelConvectionResponsiveImageDirUrl('/image/')=/storage/images/image
-NameHelper::generateLaravelConvectionalImageUrl('/image/')=/storage/images/image/image
-NameHelper::generateLaravelConvectionalImagePath('/image/')=/images/image/image
+NameHelper::generateRouteToConvectionalDirInLaravelConvectionalLink('/image/')=/storage/images/image
+NameHelper::generateRouteToImageInConvectionalDirInLaravelConvectionalLink('/image/')=/storage/images/image/image
+NameHelper::generateRouteToImageInConvectionalDirInLaravelConvectionalStorage('/image/')=/images/image/image
 $imageName='image' from generateResponsiveImageNames appears to have no extension
-NameHelper::generateConvectionalImageUrl('/image/','/cachapa/')=/cachapa/image/image
+NameHelper::generateRouteToImageInConvectionalDirInBaseRoute('/image/','/cachapa/')=/cachapa/image/image
 $imageName='image' from generateResponsiveImageNames appears to have no extension
-NameHelper::generateConvectionalImageDirUrl('/image/','/cachapa/')=/cachapa/image
-NameHelper::generateImageUrl('/image/','/cachapa/')=/cachapa/image
+NameHelper::generateRouteToConvectionalImageDirInBaseRoute('/image/','/cachapa/')=/cachapa/image
+NameHelper::generateRouteToImageInBaseRoute('/image/','/cachapa/')=/cachapa/image
 $imageName='/image/' from generateResponsiveImageNames appears to have no extension
-NameHelper::transformNameToUrlName('/image/')=image
+NameHelper::transformNameToRouteName('/image/')=image
 NameHelper::getFileOrDirName('/image/')=image
 NameHelper::getFileOrDirNameWithoutExt('/image/')=image
 $fileLocatorName='/image/' from getExtOfFile appears to have no extension
+<<<<<<< HEAD
 ```
 
 ## Technologies used / Used technologies
@@ -342,6 +371,8 @@ $fileLocatorName='/image/' from getExtOfFile appears to have no extension
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/israeldavidvm)
 [![Paypal](https://img.shields.io/badge/Paypal-@israeldavidvm-0077B5?style=for-the-badge&logo=paypal&logoColor=white&labelColor=101010)](https://paypal.me/israeldavidvm)
 [![Binance](https://img.shields.io/badge/Binance_ID-809179020-101010?style=for-the-badge&logo=binancel&logoColor=white&labelColor=101010)](https://www.binance.com/activity/referral-entry/CPA?ref=CPA_004ZGH9EIS)
+=======
+>>>>>>> main
 
 ### Find me on:
 [![GITHUB](https://img.shields.io/badge/Github-israeldavidvm-gray?style=for-the-badge&logo=github&logoColor=white&labelColor=101010)](https://github.com/israeldavidvm)
