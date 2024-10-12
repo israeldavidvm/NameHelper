@@ -399,12 +399,14 @@ NameHelper::transformNameToRouteName('/image/')=image
 NameHelper::getFileOrDirName('/image/')=image
 NameHelper::getFileOrDirNameWithoutExt('/image/')=image
 $fileLocatorName='/image/' from getExtOfFile appears to have no extension
+
 ```
 
 ### Make a donation. Your contribution will make a difference.
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/israeldavidvm)
 [![Paypal](https://img.shields.io/badge/Paypal-@israeldavidvm-0077B5?style=for-the-badge&logo=paypal&logoColor=white&labelColor=101010)](https://paypal.me/israeldavidvm )
 [![Binance](https://img.shields.io/badge/Binance_ID-809179020-101010?style=for-the-badge&logo=binancel&logoColor=white&labelColor=101010)](https://www.binance.com/ activity/referral-entry/CPA?ref=CPA_004ZGH9EIS)
+
 
 ### Find me on:
 [![GITHUB](https://img.shields.io/badge/Github-israeldavidvm-gray?style=for-the-badge&logo=github&logoColor=white&labelColor=101010)](https://github.com/israeldavidvm)
