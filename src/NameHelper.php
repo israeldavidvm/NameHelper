@@ -35,6 +35,15 @@ class NameHelper {
 
     }
 
+    public static function generateRouteToConvetionalDirInLaravelConvetionalStorage($imageName){
+
+        return self::generateRouteToConvetionalImageDirInBaseRoute(
+            $imageName,
+            "/images"
+        );
+
+    }
+
     public static function generateRouteToImageInConvetionalDirInLaravelConvetionalStorage($imageName){
 
         return self::generateRouteToImageInConvetionalDirInBaseRoute(
