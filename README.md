@@ -171,16 +171,16 @@ Si se quiere usar uno de los caracteres anteriores se debe de anteceder \ con
 
 De manera que la libreria utilizara la siguiente gramatica para sus urls
 
-```<baseUrl>/<dirImage>(/<imageName>)? | <baseUrl>/<imageName>```
+```<baseUrl>(/<laravelConvention>)?/<dirImage>(/<imageName>)? | <baseUrl>(/<laravelConvention>)?/<imageName>```
 
 Donde: 
 Los metodos que contienen InLaravelConvetionalLink suelen darle el valor a
 ```
-<baseUrl>  "/storage/images" 
+(/<laravelConvention>)?  "/storage/images" 
 ```
 Y los metodos que contienen InLaravelConvetionalStorage suelen darle el valor a
 ```
-<baseUrl>  "/images" 
+(/<laravelConvention>)?  "/images" 
 ```
 
 Donde:
@@ -198,7 +198,7 @@ La diferencia entre una imagen responsiva y otro que no lo es radica en que para
 
 #### Ruta a Imagen no responsiva local o externa 
 ```
-<NonResponsiveImageUrl>::= <baseUrl>(/<dirImage>)?/<imageName>
+<NonResponsiveImageUrl>::= <baseUrl>(/<laravelConvention>)?(/<dirImage>)?/<imageName>
 ```
 
 Como por ejemplo 
@@ -208,10 +208,10 @@ Como por ejemplo
 
 #### Rutas a imagenes locales o externas responsivas
 
-Para este caso se generara un conjunto de rutas con la sitaxis de las imagenes no responsivas
+Para este caso se generara un conjunto de rutas 
 
 ```
-<ResponsiveVariationImageUrl>::= <baseUrl>(/<dirImage>)?/<imageName>
+<ResponsiveVariationImageUrl>::= <baseUrl>(/<laravelConvention>)?(/<dirImage>)?/<imageName>
 ```
 
 Como por ejemplo 
@@ -314,92 +314,7 @@ NameHelper::generateRoutesToResponsiveImagesInConvetionalDirInLaravelConvetional
 ```
 que añadiran la informacion necesaria
 
-#### Mas ejemplos de uso
-```
-Probando la salida de los metodos con
 
-$fileLocator='/imagen.png'
-$baseUrl='/cachapa/'
-
-NameHelper::generateRoutesToResponsiveImagesInConvetionalDirInLaravelConvetionalLink('/imagen.png')=[
-/storage/images/imagen/imagen.png
-/storage/images/imagen/360-imagen.png
-/storage/images/imagen/720-imagen.png
-/storage/images/imagen/1080-imagen.png
-/storage/images/imagen/1440-imagen.png
-/storage/images/imagen/1800-imagen.png
-/storage/images/imagen/2160-imagen.png
-/storage/images/imagen/2880-imagen.png
-/storage/images/imagen/3600-imagen.png
-/storage/images/imagen/4320-imagen.png
-]
-NameHelper::generateRouteToConvetionalDirInLaravelConvetionalLink('/imagen.png')=/storage/images/imagen
-NameHelper::generateRouteToImageInConvetionalDirInLaravelConvetionalLink('/imagen.png')=/storage/images/imagen/imagen.png
-NameHelper::generateRouteToImageInConvetionalDirInLaravelConvetionalStorage('/imagen.png')=/images/imagen/imagen.png
-NameHelper::generateRoutesToResponsiveImagesInConvetionalDirInBaseRoute('/imagen.png','/cachapa/')=[
-/cachapa/imagen/imagen.png
-/cachapa/imagen/360-imagen.png
-/cachapa/imagen/720-imagen.png
-/cachapa/imagen/1080-imagen.png
-/cachapa/imagen/1440-imagen.png
-/cachapa/imagen/1800-imagen.png
-/cachapa/imagen/2160-imagen.png
-/cachapa/imagen/2880-imagen.png
-/cachapa/imagen/3600-imagen.png
-/cachapa/imagen/4320-imagen.png
-]
-NameHelper::generateRouteToImageInConvetionalDirInBaseRoute('/imagen.png','/cachapa/')=/cachapa/imagen/imagen.png
-NameHelper::generateRoutesToResponsiveImagesInBaseRoute('/imagen.png','/cachapa/')=[
-/cachapa/imagen.png
-/cachapa/360-imagen.png
-/cachapa/720-imagen.png
-/cachapa/1080-imagen.png
-/cachapa/1440-imagen.png
-/cachapa/1800-imagen.png
-/cachapa/2160-imagen.png
-/cachapa/2880-imagen.png
-/cachapa/3600-imagen.png
-/cachapa/4320-imagen.png
-]
-NameHelper::generateRouteToConvetionalImageDirInBaseRoute('/imagen.png','/cachapa/')=/cachapa/imagen
-NameHelper::generateRouteToImageInBaseRoute('/imagen.png','/cachapa/')=/cachapa/imagen.png
-NameHelper::generateResponsiveImageNames('/imagen.png')=[
-/imagen.png
-360-/imagen.png
-720-/imagen.png
-1080-/imagen.png
-1440-/imagen.png
-1800-/imagen.png
-2160-/imagen.png
-2880-/imagen.png
-3600-/imagen.png
-4320-/imagen.png
-]
-NameHelper::transformNameToRouteName('/imagen.png')=imagen.png
-NameHelper::getFileOrDirName('/imagen.png')=imagen.png
-NameHelper::getFileOrDirNameWithoutExt('/imagen.png')=imagen
-NameHelper::getExtOfFile('/imagen.png')=png
-
-Probando la salida de los metodos con
-
-$fileLocator='/imagen/'
-$baseUrl='/cachapa/'
-
-$imageName='imagen' de generateResponsiveImageNames pareciera no tener una extension
-NameHelper::generateRouteToConvetionalDirInLaravelConvetionalLink('/imagen/')=/storage/images/imagen
-NameHelper::generateRouteToImageInConvetionalDirInLaravelConvetionalLink('/imagen/')=/storage/images/imagen/imagen
-NameHelper::generateRouteToImageInConvetionalDirInLaravelConvetionalStorage('/imagen/')=/images/imagen/imagen
-$imageName='imagen' de generateResponsiveImageNames pareciera no tener una extension
-NameHelper::generateRouteToImageInConvetionalDirInBaseRoute('/imagen/','/cachapa/')=/cachapa/imagen/imagen
-$imageName='imagen' de generateResponsiveImageNames pareciera no tener una extension
-NameHelper::generateRouteToConvetionalImageDirInBaseRoute('/imagen/','/cachapa/')=/cachapa/imagen
-NameHelper::generateRouteToImageInBaseRoute('/imagen/','/cachapa/')=/cachapa/imagen
-$imageName='/imagen/' de generateResponsiveImageNames pareciera no tener una extension
-NameHelper::transformNameToRouteName('/imagen/')=imagen
-NameHelper::getFileOrDirName('/imagen/')=imagen
-NameHelper::getFileOrDirNameWithoutExt('/imagen/')=imagen
-$fileLocatorName='/imagen/' de getExtOfFile pareciera no tener una extension
-```
 
 ### Make a donation. Your contribution will make a difference.
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/israeldavidvm)

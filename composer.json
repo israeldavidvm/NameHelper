@@ -17,5 +17,8 @@
         "psr-4": {
             "Israeldavidvm\\NameHelper\\": "src/"
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.5"
     }
 }

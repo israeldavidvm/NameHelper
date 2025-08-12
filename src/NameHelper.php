@@ -8,47 +8,57 @@ class NameHelper {
 
     public static $responsiveImageSizes=[360,720,1080,1440,1800,2160,2880,3600,4320];
 
-    public static function generateRoutesToResponsiveImagesInConvetionalDirInLaravelConvetionalLink($imageName){
+    public static function generateRoutesToResponsiveImagesInConvetionalDirInLaravelConvetionalLink($imageName,$baseUrl=''){
+
+        $baseUrl=self::concatenateRoutes($baseUrl,"/storage/images");
 
         return self::generateRoutesToResponsiveImagesInConvetionalDirInBaseRoute(
             $imageName,
-            "/storage/images"
+            $baseUrl
         );
 
     }
 
-    public static function generateRouteToConvetionalDirInLaravelConvetionalLink($imageName){
+    public static function generateRouteToConvetionalDirInLaravelConvetionalLink($imageName,$baseUrl=''){
+
+        $baseUrl=self::concatenateRoutes($baseUrl,"/storage/images");
 
         return self::generateRouteToConvetionalImageDirInBaseRoute(
             $imageName,
-            "/storage/images"
+            $baseUrl
         );
 
     }
 
-    public static function generateRouteToImageInConvetionalDirInLaravelConvetionalLink($imageName){
+    public static function generateRouteToImageInConvetionalDirInLaravelConvetionalLink($imageName,$baseUrl=''){
+
+        $baseUrl=self::concatenateRoutes($baseUrl,"/storage/images");
 
         return self::generateRouteToImageInConvetionalDirInBaseRoute(
             $imageName,
-            "/storage/images"
+            $baseUrl
         );
 
     }
 
-    public static function generateRouteToConvetionalDirInLaravelConvetionalStorage($imageName){
+    public static function generateRouteToConvetionalDirInLaravelConvetionalStorage($imageName,$baseUrl=''){
+
+        $baseUrl=self::concatenateRoutes($baseUrl,"/images");
 
         return self::generateRouteToConvetionalImageDirInBaseRoute(
             $imageName,
-            "/images"
+            $baseUrl
         );
 
     }
 
-    public static function generateRouteToImageInConvetionalDirInLaravelConvetionalStorage($imageName){
+    public static function generateRouteToImageInConvetionalDirInLaravelConvetionalStorage($imageName,$baseUrl=''){
+
+        $baseUrl=self::concatenateRoutes($baseUrl,"/images");
 
         return self::generateRouteToImageInConvetionalDirInBaseRoute(
             $imageName,
-            "/images"
+            $baseUrl
         );
 
     }
